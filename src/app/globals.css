@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 /* Clerk Auth forms */
+.cl-rootBox {
+  @apply mx-auto my-auto;
+}
+
 .cl-formButtonPrimary {
   @apply bg-purple-1;
 }
@@ -28,6 +32,10 @@
 }
 
 /* Profile Info */
+.cl-userButton-root {
+  @apply m-4 float-left;
+}
+
 .input {
   @apply bg-dark-1 p-2.5 rounded-lg border-none focus:outline-none mt-3 text-light-1
 }
