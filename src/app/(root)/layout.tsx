@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../globals.css'
 import LeftBar from '@/components/layout/LeftBar'
@@ -7,11 +6,6 @@ import BottomBar from '@/components/layout/BottomBar'
 import MainContainer from '@/components/layout/container/MainContainer'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-    title: 'Blog-Sphere 2',
-    description: 'A Social Media App',
-}
 
 export default function RootLayout({
     children,
