@@ -51,23 +51,21 @@ export async function POST(req: Request) {
     const eventType = evt?.type;
 
     try {
-        switch (eventType) {
-            case "user.created":
-                await create_user(evt?.data)
-                break;
-
-            case "user.updated":
-                await update_user(evt?.data)
-                break;
-
-
-            case "user.deleted":
-                await delete_user(evt?.data?.id);
-                break;
-
-            default:
-                return new Response("Unsupported event type", { status: 400 });
+        if (eventType === "user.created") {
+            await create_user(evt?.data)
+            return new Response("User created successfully", { status: 200 })
         }
+
+        if (eventType === "user.updated") {
+            await update_user(evt?.data)
+            return new Response("User updated successfully", { status: 200 })
+        }
+
+        if (eventType === "user.deleted") {
+            await delete_user(evt?.data?.id);
+            return new Response("User deleted successfully", { status: 200 })
+        }
+
     } catch (error: any) {
         console.error("Error handling event:", error.message);
         return new Response("Internal Server Error", { status: 500 });
