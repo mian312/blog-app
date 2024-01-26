@@ -15,7 +15,7 @@ type Data = {
 export const create_user = async (data: Data) => {
     if (!data) {
         return {
-            status: "error",
+            status: 404,
             message: "Data not found",
         };
     }
@@ -34,13 +34,13 @@ export const create_user = async (data: Data) => {
 
         // Return the success response
         return {
-            status: "success",
+            status: 200,
             message: "User created successfully",
         };
     } catch (error: any) {
         // Return an error response
         return {
-            status: "error",
+            status: 400,
             message: "Failed to create user",
             error: error.message
         };
@@ -52,7 +52,7 @@ export const create_user = async (data: Data) => {
 export const update_user = async (data: Data) => {
     if (!data) {
         return {
-            status: "error",
+            status: 404,
             message: "Data not found",
         };
     }
@@ -71,13 +71,13 @@ export const update_user = async (data: Data) => {
 
         // Return the success response
         return {
-            status: "success",
+            status: 200,
             message: "User updated successfully",
         };
     } catch (error: any) {
         // Return an error response
         return {
-            status: "error",
+            status: 400,
             message: "Failed to update user",
             error: error.message
         };
@@ -89,7 +89,7 @@ export const update_user = async (data: Data) => {
 export const delete_user = async (id: string | undefined) => {
     if (!id) {
         return {
-            status: "error",
+            status: 404,
             message: "ID not found",
         };
     }
@@ -99,13 +99,13 @@ export const delete_user = async (id: string | undefined) => {
 
         // Return an success response
         return {
-            status: "success",
+            status: 200,
             message: "User deleted successfully",
         };
     } catch (error: any) {
         // Return an error response
         return {
-            status: "error",
+            status: 400,
             message: error.message,
         };
     }

@@ -36,7 +36,7 @@ export const createUser = async ({ id, details }: { id: Id; details: UserDetails
         await user.save();
         return user;
     } catch (error: any) {
-        console.error(error.message);
+        console.error("user creation error", error.message);
     }
 };
 
@@ -64,7 +64,7 @@ export const updateUser = async ({ id, details }: { id: Id; details: UserDetails
                     email: email,
                 },
             },
-            { new: true }
+            { upsert: true, new: true }
         );
 
         return user;

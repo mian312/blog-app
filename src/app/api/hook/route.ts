@@ -52,18 +52,19 @@ export async function POST(req: Request) {
 
     try {
         if (eventType === "user.created") {
-            await create_user(evt?.data)
-            return new Response("User created successfully", { status: 200 })
+            const createdUser = await create_user(evt?.data)
+            console.log(createdUser)
+            return new Response(createdUser.message, { status: createdUser.status })
         }
 
         if (eventType === "user.updated") {
-            await update_user(evt?.data)
-            return new Response("User updated successfully", { status: 200 })
+            const updatedUser = await update_user(evt?.data)
+            return new Response(updatedUser.message, { status: updatedUser.status })
         }
 
         if (eventType === "user.deleted") {
-            await delete_user(evt?.data?.id);
-            return new Response("User deleted successfully", { status: 200 })
+            const deletedUser = await delete_user(evt?.data?.id);
+            return new Response(deletedUser.message, { status: deletedUser.status })
         }
 
     } catch (error: any) {
