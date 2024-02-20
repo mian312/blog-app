@@ -1,10 +1,26 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { EmailAddressJSON } from "@clerk/nextjs/server";
 
-const UserSchema = new mongoose.Schema({
+interface User extends Document {
+    clerkId: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: EmailAddressJSON[];
+    profilePhoto: string;
+    posts: mongoose.Schema.Types.ObjectId[];
+    savedPosts: mongoose.Schema.Types.ObjectId[];
+    likedPosts: mongoose.Schema.Types.ObjectId[];
+    followers: mongoose.Schema.Types.ObjectId[];
+    following: mongoose.Schema.Types.ObjectId[];
+    createdAt: Date;
+}
+
+const UserSchema = new Schema<User>({
     clerkId: {
         type: String,
         required: true,
-        uinque: true,
+        unique: true,
     },
     firstName: {
         type: String,
@@ -19,7 +35,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     email: {
-        type: [String],
+        type: [Object],
         required: true,
     },
     profilePhoto: {
@@ -52,6 +68,6 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+const UserModel = mongoose.models.User || mongoose.model<User>("User", UserSchema);
 
-export default User;
+export default UserModel;

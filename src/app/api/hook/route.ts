@@ -51,8 +51,7 @@ export async function POST(req: Request) {
     const eventType = evt?.type;
     console.log(eventType)
 
-    // try {
-    if (evt?.type === "user.created") {
+    if (eventType === "user.created") {
         if (!evt?.data) {
             return new Response("No user data found", { status: 404 })
         }
@@ -75,7 +74,7 @@ export async function POST(req: Request) {
         }
     }
 
-    if (evt?.type === "user.updated") {
+    if (eventType === "user.updated") {
         if (!evt?.data) {
             console.log("no user data")
             return new Response("No user data found", { status: 404 })
@@ -113,10 +112,5 @@ export async function POST(req: Request) {
             return new Response("Error deleting user", { status: 400, statusText: error.message })
         }
     }
-
-    // } catch (error: any) {
-    //     console.error("Error handling event:", error.message);
-    //     return new Response("Internal Server Error", { status: 500 });
-    // }
 
 }
