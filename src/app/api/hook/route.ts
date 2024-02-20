@@ -51,72 +51,72 @@ export async function POST(req: Request) {
     const eventType = evt?.type;
     console.log(eventType)
 
-    try {
-        if (evt?.type === "user.created") {
-            if (!evt?.data) {
-                return new Response("No user data found", { status: 404 })
-            }
-
-            try {
-                await createUser({
-                    id: evt?.data.id,
-                    details: {
-                        first_name: evt?.data.first_name,
-                        last_name: evt?.data.last_name,
-                        image_url: evt?.data.image_url,
-                        user_name: evt?.data.username,
-                        email: evt?.data.email_addresses
-                    }
-                });
-
-                return new Response("User created", { status: 200 })
-            } catch (error: any) {
-                return new Response("Error creating user", { status: 400, statusText: error.message })
-            }
+    // try {
+    if (evt?.type === "user.created") {
+        if (!evt?.data) {
+            return new Response("No user data found", { status: 404 })
         }
 
-        if (evt?.type === "user.updated") {
-            if (!evt?.data) {
-                console.log("no user data")
-                return new Response("No user data found", { status: 404 })
-            }
+        try {
+            await createUser({
+                id: evt?.data.id,
+                details: {
+                    first_name: evt?.data.first_name,
+                    last_name: evt?.data.last_name,
+                    image_url: evt?.data.image_url,
+                    user_name: evt?.data.username,
+                    email: evt?.data.email_addresses
+                }
+            });
 
-            try {
-                await updateUser({
-                    id: evt?.data.id,
-                    details: {
-                        first_name: evt?.data.first_name,
-                        last_name: evt?.data.last_name,
-                        image_url: evt?.data.image_url,
-                        user_name: evt?.data.username,
-                        email: evt?.data.email_addresses
-                    }
-                });
-
-                return new Response("User updated", { status: 200 })
-            } catch (error: any) {
-                console.log(error.message)
-                return new Response("Error updating user", { status: 400, statusText: error.message })
-            }
+            return new Response("User created", { status: 200 })
+        } catch (error: any) {
+            return new Response("Error creating user", { status: 400, statusText: error.message })
         }
-
-        if (evt?.type === "user.deleted") {
-            if (!evt?.data) {
-                return new Response("No user data found", { status: 404 })
-            }
-
-            try {
-                await deleteUser(evt?.data.id);
-
-                return new Response("User Deleted", { status: 200 })
-            } catch (error: any) {
-                return new Response("Error deleting user", { status: 400, statusText: error.message })
-            }
-        }
-
-    } catch (error: any) {
-        console.error("Error handling event:", error.message);
-        return new Response("Internal Server Error", { status: 500 });
     }
+
+    if (evt?.type === "user.updated") {
+        if (!evt?.data) {
+            console.log("no user data")
+            return new Response("No user data found", { status: 404 })
+        }
+
+        try {
+            await updateUser({
+                id: evt?.data.id,
+                details: {
+                    first_name: evt?.data.first_name,
+                    last_name: evt?.data.last_name,
+                    image_url: evt?.data.image_url,
+                    user_name: evt?.data.username,
+                    email: evt?.data.email_addresses
+                }
+            });
+
+            return new Response("User updated", { status: 200 })
+        } catch (error: any) {
+            console.log(error.message)
+            return new Response("Error updating user", { status: 400, statusText: error.message })
+        }
+    }
+
+    if (evt?.type === "user.deleted") {
+        if (!evt?.data) {
+            return new Response("No user data found", { status: 404 })
+        }
+
+        try {
+            await deleteUser(evt?.data.id);
+
+            return new Response("User Deleted", { status: 200 })
+        } catch (error: any) {
+            return new Response("Error deleting user", { status: 400, statusText: error.message })
+        }
+    }
+
+    // } catch (error: any) {
+    //     console.error("Error handling event:", error.message);
+    //     return new Response("Internal Server Error", { status: 500 });
+    // }
 
 }
