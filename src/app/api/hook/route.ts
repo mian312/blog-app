@@ -1,7 +1,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import { create_user, delete_user, update_user } from './hook.func'
+import { createUser, deleteUser, updateUser } from '@/lib/function/User.func'
 
 export async function POST(req: Request) {
 
@@ -49,22 +49,69 @@ export async function POST(req: Request) {
 
     // Handle the event
     const eventType = evt?.type;
+    console.log(eventType)
 
     try {
-        if (eventType === "user.created") {
-            const createdUser = await create_user(evt?.data)
-            console.log(createdUser)
-            return new Response(createdUser.message, { status: createdUser.status })
+        if (evt?.type === "user.created") {
+            if (!evt?.data) {
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await createUser({
+                    id: evt?.data.id,
+                    details: {
+                        first_name: evt?.data.first_name,
+                        last_name: evt?.data.last_name,
+                        image_url: evt?.data.image_url,
+                        user_name: evt?.data.username,
+                        email: evt?.data.email_addresses
+                    }
+                });
+
+                return new Response("User created", { status: 200 })
+            } catch (error: any) {
+                return new Response("Error creating user", { status: 400, statusText: error.message })
+            }
         }
 
-        if (eventType === "user.updated") {
-            const updatedUser = await update_user(evt?.data)
-            return new Response(updatedUser.message, { status: updatedUser.status })
+        if (evt?.type === "user.updated") {
+            if (!evt?.data) {
+                console.log("no user data")
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await updateUser({
+                    id: evt?.data.id,
+                    details: {
+                        first_name: evt?.data.first_name,
+                        last_name: evt?.data.last_name,
+                        image_url: evt?.data.image_url,
+                        user_name: evt?.data.username,
+                        email: evt?.data.email_addresses
+                    }
+                });
+
+                return new Response("User updated", { status: 200 })
+            } catch (error: any) {
+                console.log(error.message)
+                return new Response("Error updating user", { status: 400, statusText: error.message })
+            }
         }
 
-        if (eventType === "user.deleted") {
-            const deletedUser = await delete_user(evt?.data?.id);
-            return new Response(deletedUser.message, { status: deletedUser.status })
+        if (evt?.type === "user.deleted") {
+            if (!evt?.data) {
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await deleteUser(evt?.data.id);
+
+                return new Response("User Deleted", { status: 200 })
+            } catch (error: any) {
+                return new Response("Error deleting user", { status: 400, statusText: error.message })
+            }
         }
 
     } catch (error: any) {
