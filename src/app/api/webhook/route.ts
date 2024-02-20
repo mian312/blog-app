@@ -1,0 +1,122 @@
+import { Webhook } from 'svix'
+import { headers } from 'next/headers'
+import { WebhookEvent } from '@clerk/nextjs/server'
+import { createUser, deleteUser, updateUser } from '@/lib/function/User.func'
+
+export async function POST(req: Request) {
+
+    const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+
+    if (!WEBHOOK_SECRET) {
+        throw new Error('Missing WEBHOOK_SECRET')
+    }
+
+    // Get the headers
+    const headerPayload = headers();
+    const svix_id = headerPayload.get("svix-id");
+    const svix_timestamp = headerPayload.get("svix-timestamp");
+    const svix_signature = headerPayload.get("svix-signature");
+
+    // If there are no headers, error out
+    if (!svix_id || !svix_timestamp || !svix_signature) {
+        return new Response('Error occured -- no svix headers', {
+            status: 400
+        })
+    }
+
+    // Get the body
+    const payload = await req.json()
+    const body = JSON.stringify(payload);
+
+    // Create a new Svix instance with your secret.
+    const wh = new Webhook(WEBHOOK_SECRET);
+
+    let evt: WebhookEvent
+
+    // Verify the payload with the headers
+    try {
+        evt = wh.verify(body, {
+            "svix-id": svix_id,
+            "svix-timestamp": svix_timestamp,
+            "svix-signature": svix_signature,
+        }) as WebhookEvent
+    } catch (err) {
+        console.error('Error verifying webhook:', err);
+        return new Response('Error occured', {
+            status: 400
+        })
+    }
+
+    // Handle the event
+    const eventType = evt?.type;
+    console.log(eventType)
+
+    try {
+        if (eventType === "user.created") {
+            if (!evt?.data) {
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await createUser({
+                    id: evt?.data.id,
+                    details: {
+                        first_name: evt?.data.first_name,
+                        last_name: evt?.data.last_name,
+                        image_url: evt?.data.image_url,
+                        user_name: evt?.data.username,
+                        email: evt?.data.email_addresses
+                    }
+                });
+
+                return new Response("User created", { status: 200 })
+            } catch (error: any) {
+                return new Response("Error creating user", { status: 400, statusText: error.message })
+            }
+        }
+
+        if (eventType === "user.updated") {
+            if (!evt?.data) {
+                console.log("no user data")
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await updateUser({
+                    id: evt?.data.id,
+                    details: {
+                        first_name: evt?.data.first_name,
+                        last_name: evt?.data.last_name,
+                        image_url: evt?.data.image_url,
+                        user_name: evt?.data.username,
+                        email: evt?.data.email_addresses
+                    }
+                });
+
+                return new Response("User updated", { status: 200 })
+            } catch (error: any) {
+                console.log(error.message)
+                return new Response("Error updating user", { status: 400, statusText: error.message })
+            }
+        }
+
+        if (eventType === "user.deleted") {
+            if (!evt?.data) {
+                return new Response("No user data found", { status: 404 })
+            }
+
+            try {
+                await deleteUser(evt?.data.id);
+
+                return new Response("User Deleted", { status: 200 })
+            } catch (error: any) {
+                return new Response("Error deleting user", { status: 400, statusText: error.message })
+            }
+        }
+
+    } catch (error: any) {
+        console.error("Error handling event:", error.message);
+        return new Response("Internal Server Error", { status: 500 });
+    }
+
+}
