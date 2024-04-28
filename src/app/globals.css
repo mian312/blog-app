@@ -37,7 +37,7 @@
 }
 
 .input {
-  @apply bg-dark-1 p-2.5 rounded-lg border-none focus:outline-none mt-3 text-light-1
+  @apply bg-transparent p-2.5 rounded-lg border border-black focus:outline-none mt-3
 }
 
 /* Top Bar */

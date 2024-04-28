@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { GridFSBucket, Db } from 'mongodb';
+import { NextApiRequest } from "next";
 
 let isConnected: boolean = false;
 
@@ -17,4 +19,18 @@ export const connectDB = async () => {
             process.exit();
         }
     } while (!isConnected);
+}
+
+// Middleware function to attach db to req object
+interface CustomNextApiRequest extends NextApiRequest {
+    formData(): Promise<any>; // Adjust the return type as per the actual return type of formData()
+    db: Db;
+}
+
+// Attach db to req object
+export const attachDB = async (req: CustomNextApiRequest) => {
+    if (!isConnected) {
+        await connectDB();
+    }
+    req.db = mongoose.connection.db;
 }
