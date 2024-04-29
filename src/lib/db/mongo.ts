@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { GridFSBucket, Db } from 'mongodb';
+import { Db } from 'mongodb';
 import { NextApiRequest } from "next";
 
 let isConnected: boolean = false;
