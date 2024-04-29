@@ -1,9 +1,8 @@
 import { connectDB, attachDB } from "@/lib/db/mongo";
 import { GridFSBucket, Db } from 'mongodb';
-import { NextApiRequest } from "next";
 
 // Define a custom type that extends NextApiRequest and adds db property
-interface CustomNextApiRequest extends NextApiRequest {
+interface CustomNextApiRequest extends Request {
     formData(): Promise<any>;
     db: Db;
 }

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Db } from 'mongodb';
-import { NextApiRequest } from "next";
 
 let isConnected: boolean = false;
 
@@ -22,7 +21,7 @@ export const connectDB = async () => {
 }
 
 // Middleware function to attach db to req object
-interface CustomNextApiRequest extends NextApiRequest {
+interface CustomNextApiRequest extends Request {
     formData(): Promise<any>; // Adjust the return type as per the actual return type of formData()
     db: Db;
 }

@@ -1,4 +1,3 @@
-import { NextApiRequest } from 'next';
 import { attachDB, connectDB } from '@/lib/db/mongo';
 import Post from '@/lib/model/Post.model';
 import User from '@/lib/model/User.model';
@@ -6,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { GridFSBucket, Db } from 'mongodb';
 
 // Define a custom type that extends NextApiRequest and adds formData and db properties
-interface CustomNextApiRequest extends NextApiRequest {
+interface CustomNextApiRequest extends Request {
   formData(): Promise<any>; // Adjust the return type as per the actual return type of formData()
   db: Db;
 }
