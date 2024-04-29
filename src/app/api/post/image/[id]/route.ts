@@ -9,7 +9,7 @@ interface CustomNextApiRequest extends NextApiRequest {
 }
 
 export const GET = async (req: CustomNextApiRequest,
-    { params }: any) => {
+    { params }: any): Promise<Response> => {
     try {
         // Connect to the database
         await connectDB();
