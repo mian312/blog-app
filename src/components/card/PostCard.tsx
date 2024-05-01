@@ -89,7 +89,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
   };
 
   return (
-    <div className="w-full max-w-xl rounded-lg flex flex-col gap-4 bg-dark-1 p-5 max-sm:gap-2">
+    <div className="w-full max-w-xl rounded-lg flex flex-col gap-4 bg-slate-200 p-5 max-sm:gap-2">
       <div className="flex justify-between">
         <Link href={`/profile/${creator?._id}/posts`}>
           <div className="flex gap-3 items-center">
@@ -101,7 +101,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
               className="rounded-full"
             />
             <div className="flex flex-col gap-1">
-              <p className="text-small-semibold text-light-1">
+              <p className="text-small-semibold">
                 {creator?.firstName} {creator?.lastName}
               </p>
               <p className="text-subtle-medium text-light-3">
@@ -118,7 +118,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
         )}
       </div>
 
-      <p className="text-body-normal text-light-1 max-sm:text-small-normal">
+      <p className="text-body-normal max-sm:text-small-normal">
         {post?.caption}
       </p>
 
@@ -138,7 +138,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
         <div className="flex gap-2 items-center">
           {!isLiked ? (
             <FavoriteBorder
-              sx={{ color: "white", cursor: "pointer" }}
+              sx={{ color: "red", cursor: "pointer" }}
               onClick={handleLike}
             />
           ) : (
@@ -147,19 +147,19 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
               onClick={handleLike}
             />
           )}
-          <p className="text-light-1">{post?.likes.length}</p>
+          <p className="">{post?.likes.length}</p>
         </div>
 
         {loggedInClerkID !== creator?.clerkId && (
           <>
             {isSaved ? (
               <Bookmark
-                sx={{ color: "purple", cursor: "pointer" }}
+                sx={{ color: "black", cursor: "pointer" }}
                 onClick={handleSave}
               />
             ) : (
               <BookmarkBorder
-                sx={{ color: "white", cursor: "pointer" }}
+                sx={{ color: "black", cursor: "pointer" }}
                 onClick={handleSave}
               />
             )}

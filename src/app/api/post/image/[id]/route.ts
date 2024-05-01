@@ -15,7 +15,6 @@ export const GET = async (req: CustomNextApiRequest,
         await attachDB(req);
 
         const filename = params?.id;
-        console.log("filename: ", filename);
 
         const bucket = new GridFSBucket(req.db);
 
