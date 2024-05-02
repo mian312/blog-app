@@ -113,7 +113,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
 
         {loggedInClerkID === creator?.clerkId && (
           <Link href={`/edit-post/${post?._id}`}>
-            <BorderColor sx={{ color: "white", cursor: "pointer" }} />
+            <BorderColor sx={{ color: "black", cursor: "pointer" }} />
           </Link>
         )}
       </div>
@@ -168,7 +168,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
 
         {loggedInClerkID === creator?.clerkId && (
           <Delete
-            sx={{ color: "white", cursor: "pointer" }}
+            sx={{ color: "black", cursor: "pointer" }}
             onClick={handleDelete}
           />
         )}
