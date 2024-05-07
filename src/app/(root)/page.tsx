@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'
-import { UserButton, useUser } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
 import Loader from '@/components/Loader';
 import PostCard from '@/components/card/PostCard';
 

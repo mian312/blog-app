@@ -8,7 +8,7 @@ import { Add, Search } from '@mui/icons-material'
 
 const TopBar = () => {
   const router = useRouter();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
 
   return (
     <div className="flex justify-between items-center mt-6">
