@@ -1,8 +1,7 @@
 import Post from "@/lib/model/Post.model";
 import { connectDB } from "@/lib/db/mongo";
-import { NextApiRequest } from "next";
 
-export const GET = async (_req: NextApiRequest, { params }: any) => {
+export const GET = async ({ params }: any) => {
     try {
         await connectDB();
 
