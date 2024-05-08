@@ -79,7 +79,7 @@ const UserCard: React.FC<UserCardProps> = ({ userData, update }) => {
     <div className="flex justify-between items-center rounded-lg bg-slate-200 p-5">
       <Link
         className="flex gap-4 items-center"
-        href={`/profile/${userData._id}/posts`}
+        href={`/profile/${userData._id}?q=posts`}
       >
         <Image
           src={userData.profilePhoto}
