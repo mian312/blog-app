@@ -134,8 +134,9 @@ const ProfileCard: React.FC<Props> = ({ userData, activeTab }) => {
             </div>
 
             <div className="flex gap-6">
-                {tabs.map((tab) => (
+                {tabs.map((tab, index) => (
                     <Link
+                        key={index}
                         className={`tab ${activeTab === tab?.link ? "bg-purple-1" : "bg-dark-2"
                             }`}
                         href={`/profile/${userData._id}?q=${tab.link}`}
