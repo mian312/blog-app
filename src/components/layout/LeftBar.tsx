@@ -45,7 +45,7 @@ const LeftBar = () => {
 
       <div className="flex flex-col gap-2">
         <h3 className={`text-center text-base-bold min-h-6 w-full text-light-1 ${loading ? 'animate-pulse bg-slate-500' : ''}`}>
-          {user?.fullName}
+          {user?.username}
         </h3>
         <div className="flex text-light-1 justify-between">
           <div className="flex flex-col items-center">
