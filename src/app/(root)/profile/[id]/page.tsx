@@ -89,7 +89,7 @@ const Profile = () => {
           <div className="flex flex-col items-center justify-center h-full">
             <h3 className="text-2xl font-bold mb-4">Oops!</h3>
             <p className="text-gray-600 text-center">
-              It looks like you've requested an invalid page. Please check the URL
+              It looks like you have requested an invalid page. Please check the URL
               and try again.
             </p>
           </div>
