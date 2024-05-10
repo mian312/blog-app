@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/db/mongo"
-import UserModel from "@/lib/model/User.model";
+import Post from "@/lib/model/Post.model";
+import User from "@/lib/model/User.model";
 
 
 export const GET = async (req: Request, { params }: any) => {
@@ -7,7 +8,24 @@ export const GET = async (req: Request, { params }: any) => {
         await connectDB();
 
         // const { id } = params;
-        const user = await UserModel.findOne({ clerkId: params.id }).populate("followers following").exec();
+        const user = await User.findOne({ clerkId: params.id })
+            .populate({
+                path: "posts savedPosts likedPosts",
+                model: Post,
+                populate: {
+                    path: "creator",
+                    model: User,
+                },
+            })
+            .populate({
+                path: "followers following",
+                model: User,
+                populate: {
+                    path: "posts savedPosts likedPosts",
+                    model: Post,
+                },
+            })
+            .exec();
 
         return new Response(JSON.stringify(user), {
             status: 200,

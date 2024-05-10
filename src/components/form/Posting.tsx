@@ -50,7 +50,7 @@ const Posting: React.FC<PostingProps> = ({ post, apiEndpoint }) => {
             });
 
             if (response.ok) {
-                // router.push(`/profile/${data.creatorId}/posts`);
+                router.push(`/profile/${data.creatorId}?q=posts`);
                 console.log("Post published successfully!");
             } else {
                 console.error("Failed to publish the post. Server returned status:", response.status);

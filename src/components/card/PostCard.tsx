@@ -18,7 +18,7 @@ interface User {
   profilePhoto: string;
   clerkId: string;
   savedPosts?: any[];
-  likedPosts?: any[]; 
+  likedPosts?: any[];
 }
 
 interface Post {
@@ -91,7 +91,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
   return (
     <div className="w-full max-w-xl rounded-lg flex flex-col gap-4 bg-slate-200 p-5 max-sm:gap-2">
       <div className="flex justify-between">
-        <Link href={`/profile/${creator?._id}/posts`}>
+        <Link href={`/profile/${creator?._id}?q=posts`}>
           <div className="flex gap-3 items-center">
             <Image
               src={creator?.profilePhoto}
@@ -123,7 +123,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
       </p>
 
       <Image
-        src={`${post?.postPhoto}`}
+        src={post?.postPhoto}
         alt="post photo"
         width={200}
         height={150}
@@ -147,7 +147,7 @@ const PostCard: React.FC<Props> = ({ post, creator, loggedInClerkID, update }) =
               onClick={handleLike}
             />
           )}
-          <p className="">{post?.likes.length}</p>
+          <p className="">{post?.likes?.length}</p>
         </div>
 
         {loggedInClerkID !== creator?.clerkId && (
