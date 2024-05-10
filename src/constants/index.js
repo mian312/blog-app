@@ -70,6 +70,10 @@ export const pageTitles = [
     {
         url: "/profile",
         title: "User Profile",
+    },
+    {
+        url: "/people",
+        title: "People",
     }
 ];
 
