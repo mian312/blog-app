@@ -6,8 +6,10 @@ import Loader from "@/components/Loader";
 import PostCard from "@/components/card/PostCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 const SearchPost: React.FC = () => {
+    const router = useRouter();
     const { query } = useParams();
 
     const [loading, setLoading] = useState(true);
@@ -34,6 +36,10 @@ const SearchPost: React.FC = () => {
     useEffect(() => {
         getSearchedPosts();
     }, [query]);
+
+    useEffect(() => {
+        if (!user) router.push('/sign-in')
+    }, [user])
 
     return loading || !isLoaded ? (
         <Loader />

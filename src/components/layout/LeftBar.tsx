@@ -32,7 +32,7 @@ const LeftBar = () => {
 
   useEffect(() => {
     getUserData();
-    console.log(userData);
+    // console.log(userData);
     // console.log(user);
   }, [user])
 

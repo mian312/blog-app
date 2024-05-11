@@ -7,6 +7,7 @@ import Loader from '@/components/Loader';
 import PostCard from '@/components/card/PostCard';
 import { useUser } from '@clerk/nextjs';
 import UserCard from '@/components/card/UserCard';
+import { useRouter } from 'next/router';
 
 const Posts = ({ posts, clerkID, update }:
   { posts: any[], clerkID: string | undefined, update: () => void }) => {
@@ -41,6 +42,7 @@ const Followings = ({ followings, update }: { followings: any[], update: () => v
 
 
 const Profile = () => {
+  const router = useRouter();
   const { id } = useParams();
   const searchParams = useSearchParams();
   const q = searchParams.get('q') as string;
@@ -75,6 +77,10 @@ const Profile = () => {
   useEffect(() => {
     getUser();
   }, [id]);
+
+  useEffect(() => {
+    if (!user) router.push('/sign-in')
+}, [user])
 
   const renderContent = () => {
     switch (q) {

@@ -12,7 +12,7 @@ export const connectDB = async () => {
                 dbName: process.env.DB_NAME
             });
             isConnected = true;
-            console.log(`MongoDB Connected: ${conn.connection.host}`);
+            // console.log(`MongoDB Connected: ${conn.connection.host}`);
         } catch (error: any) {
             console.error(`Error: ${error.message}`);
             process.exit();

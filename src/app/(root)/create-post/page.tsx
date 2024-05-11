@@ -5,12 +5,7 @@ import React from 'react'
 import { useUser } from "@clerk/nextjs";
 import Loader from "@/components/Loader";
 import { useEffect, useState } from "react";
-
-
-// interface UserData {
-//   _id: string;
-//   clerkId: string;
-// }
+import { useRouter } from 'next/router';
 
 interface PostData {
   creatorId: string;
@@ -21,13 +16,11 @@ interface PostData {
 
 
 const CreatePost = () => {
+  const router = useRouter();
   const { user, isLoaded } = useUser();
 
   const [loading, setLoading] = useState(true);
 
-  // const [userData, setUserData] = useState<UserData>({
-  //   _id: `${null}`, clerkId: `${user?.id}`
-  // });
 
   const [postData, setPostData] = useState<PostData>({
     creatorId: `${null}`,
@@ -50,6 +43,8 @@ const CreatePost = () => {
     if (user) {
       getUser();
       // console.log(postData);
+    } else {
+      router.push('/sign-in')
     }
   }, [user, loading]);
 

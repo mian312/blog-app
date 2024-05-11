@@ -6,8 +6,10 @@ import Loader from "@/components/Loader";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import UserCard from "@/components/card/UserCard";
+import { useRouter } from "next/router";
 
 const SearchPeople: React.FC = () => {
+    const router = useRouter();
     const { query } = useParams();
 
     const [loading, setLoading] = useState(true);
@@ -35,6 +37,10 @@ const SearchPeople: React.FC = () => {
     useEffect(() => {
         getSearchedPeople();
     }, [query]);
+
+    useEffect(() => {
+        if (!user) router.push('/sign-in')
+    }, [user])
 
     return loading || !isLoaded ? (
         <Loader />

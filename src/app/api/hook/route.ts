@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
     // Handle the event
     const eventType = evt?.type;
-    console.log(eventType)
+    // console.log(eventType)
 
     if (eventType === "user.created") {
         if (!evt?.data) {
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
 
     if (eventType === "user.updated") {
         if (!evt?.data) {
-            console.log("no user data")
+            // console.log("no user data")
             return new Response("No user data found", { status: 404 })
         }
 

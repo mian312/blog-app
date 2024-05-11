@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import Loader from '@/components/Loader'
 import PostCard from '@/components/card/PostCard'
+import { useRouter } from 'next/router';
 
 const LikedPosts = () => {
+    const router = useRouter();
     const { user, isLoaded } = useUser()
 
     const [loading, setLoading] = useState<Boolean>(true)
@@ -22,6 +24,8 @@ const LikedPosts = () => {
     useEffect(() => {
         if (user) {
             getUser()
+        } else {
+            router.push('/sign-in')
         }
     }, [user])
 
