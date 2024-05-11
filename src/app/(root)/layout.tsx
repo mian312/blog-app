@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={`${inter.className} bg-purple-2 text-light-1`}>
+            <body className={`${inter.className}`}>
                 <main className="flex flex-row">
                     <LeftBar />
                     <MainContainer>

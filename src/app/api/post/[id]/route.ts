@@ -1,7 +1,7 @@
 import Post from "@/lib/model/Post.model";
 import { connectDB } from "@/lib/db/mongo";
 
-export const GET = async ({ params }: any) => {
+export const GET = async (req: Request, { params }: any) => {
     try {
         await connectDB();
 

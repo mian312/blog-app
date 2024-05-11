@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import Loader from '@/components/Loader'
 import PostCard from '@/components/card/PostCard'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const SavedPosts = () => {
     const router = useRouter()

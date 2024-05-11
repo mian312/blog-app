@@ -5,11 +5,11 @@ import Loader from "@/components/Loader";
 import Posting from "@/components/form/Posting";
 import { useParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 
 const EditPost: React.FC = () => {
     const router = useRouter();
-    const {user, isLoaded} = useUser();
+    const { user, isLoaded } = useUser();
     const { id } = useParams();
 
     const [loading, setLoading] = useState<boolean>(true);
@@ -48,7 +48,7 @@ const EditPost: React.FC = () => {
         if (!user) router.push('/sign-in')
     }, [user])
 
-    return loading || !isLoaded ? (
+    return loading ? (
         <Loader />
     ) : (
         <div className="pt-6">

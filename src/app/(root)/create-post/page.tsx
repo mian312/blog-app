@@ -5,7 +5,7 @@ import React from 'react'
 import { useUser } from "@clerk/nextjs";
 import Loader from "@/components/Loader";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface PostData {
   creatorId: string;

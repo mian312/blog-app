@@ -6,7 +6,7 @@ import Loader from "@/components/Loader";
 import PostCard from "@/components/card/PostCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 
 const SearchPost: React.FC = () => {
     const router = useRouter();

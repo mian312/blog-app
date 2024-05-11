@@ -6,7 +6,7 @@ import Loader from "@/components/Loader";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import UserCard from "@/components/card/UserCard";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 
 const SearchPeople: React.FC = () => {
     const router = useRouter();

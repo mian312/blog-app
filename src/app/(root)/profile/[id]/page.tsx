@@ -7,16 +7,16 @@ import Loader from '@/components/Loader';
 import PostCard from '@/components/card/PostCard';
 import { useUser } from '@clerk/nextjs';
 import UserCard from '@/components/card/UserCard';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const Posts = ({ posts, clerkID, update }:
   { posts: any[], clerkID: string | undefined, update: () => void }) => {
   return (
-    <div>
+    <div className='gap-10'>
       {posts?.map((post) => (
         <PostCard key={post._id} post={post} creator={post.creator} loggedInClerkID={clerkID} update={update} />
       ))}
-    </div >
+    </div>
   )
 }
 
